@@ -7,7 +7,7 @@ function ExtractVideo({handleOptionSelect, handleSetFileData, fillZeroes, format
 }) {
 
   const ONE_MB = 1048576
-  const BASE_URL = "http://localhost:5000"
+  const BASE_URL = "https://tweak-ffmpeg.onrender.com"
   let progressPerUnitChunk = null
   const validTypes = ["mp4", "mkv"]
   let modifiedFileName = "";
@@ -83,7 +83,7 @@ function ExtractVideo({handleOptionSelect, handleSetFileData, fillZeroes, format
     progressRef.current.style.width = "0%"
 
     // ONCE FILE HAS BEEN UPLOADED, WE WILL OPEN AN EVENT SOURCE FOR REAL-TIME PROGRESS UPDATES
-    const source = new EventSource("http://localhost:5000/api/progress")
+    const source = new EventSource(`${BASE_URL}/api/progress`)
 
     source.onopen = (e) => {
       console.log("SSE OPENED")
