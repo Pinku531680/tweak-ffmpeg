@@ -17,6 +17,8 @@ app.use(express.json())
 
 let currentProgressPercent = 0
 
+const backendURL = "https://tweak-ffmpeg.onrender.com";
+
 app.get("/", (req, res) => {
     res.send("Hello World!")
 })
@@ -210,7 +212,7 @@ app.post("/api/change-resolution", (req, res) => {
     const {newHeight} = req.body
 
     let outputFileName = `${newWidth}x${newHeight}-${fileName}`
-    let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+    let outputFileUrl = `${backendURL}/output/${outputFileName}`
 
     console.log("FILE NAME: ", fileName)
     console.log("New Width: ", newWidth)
@@ -262,7 +264,7 @@ app.post("/api/extract-audio", (req, res) => {
     let fileNameWithoutExtension = fileName.slice(0, -4)  
     let outputFileName = fileNameWithoutExtension + ".mp3"
 
-    let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+    let outputFileUrl = `${backendURL}/output/${outputFileName}`
 
     if(extractEntireAudio) {
 
@@ -353,7 +355,7 @@ app.post("/api/extract-video", (req, res) => {
     let fileNameWithoutExtension = fileName.slice(0, -4)  
     let outputFileName = fileNameWithoutExtension + ".mp4"
 
-    let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+    let outputFileUrl = `${backendURL}/output/${outputFileName}`
 
     console.log("EXTRACT ENTIRE VIDEO: ", extractEntireVideo);
 
@@ -438,7 +440,7 @@ app.post("/api/extract-frame", (req, res) => {
     let fileNameWithoutExtension = fileName.slice(0, -4)  
     let outputFileName = fileNameWithoutExtension + ".jpg"
 
-    let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+    let outputFileUrl = `${backendURL}/output/${outputFileName}`
 
     ffmpeg()
     .input(`videos/${fileName}`)
@@ -485,7 +487,7 @@ app.post("/api/convert-to-gif", (req, res) => {
     let fileNameWithoutExtension = fileName.slice(0, -4)  
     let outputFileName = fileNameWithoutExtension + ".gif"
 
-    let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+    let outputFileUrl = `${backendURL}/output/${outputFileName}`
 
     ffmpeg()
     .input(`videos/${fileName}`)
@@ -538,7 +540,7 @@ app.post("/api/extract-gif", (req, res) => {
     let fileNameWithoutExtension = fileName.slice(0, -4)  
     let outputFileName = fileNameWithoutExtension + ".gif"
 
-    let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+    let outputFileUrl = `${backendURL}/output/${outputFileName}`
 
     const gifDuration = 
     (convertToSeconds(endDuration) - convertToSeconds(startDuration)) > 6 ? 6 : 
@@ -603,7 +605,7 @@ app.post("/api/trim-video", (req, res) => {
     let fileNameWithoutExtension = fileName.slice(0, -4)  
     let outputFileName = fileNameWithoutExtension + ".mp4"
 
-    let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+    let outputFileUrl = `${backendURL}/output/${outputFileName}`
 
     ffmpeg()
         .input(`videos/${fileName}`)
@@ -670,7 +672,7 @@ app.post("/api/merge-videos", async (req, res) => {
         let fileNameWithoutExtension = fileNames[0].slice(0, 10) + " and others";   
         let outputFileName = fileNameWithoutExtension + ".mp4"
 
-        let outputFileUrl = `http://localhost:5000/output/${outputFileName}`
+        let outputFileUrl = `${backendURL}/output/${outputFileName}`
         
         let textFilePath = path.join(__dirname, "videos", textFileName);
 
